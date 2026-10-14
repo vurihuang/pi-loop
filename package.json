@@ -1,0 +1,64 @@
+{
+  "name": "pi-loop",
+  "version": "0.4.0",
+  "description": "Recurring prompt execution and cron scheduling for pi — built on pi 1.2.0 durable session entries (appendEntry). Task state is an append-only event log inside the session's JSONL tree.",
+  "author": "vuri",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "skills": [
+      "./skills"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": ">=1.2.0",
+    "@sinclair/typebox": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^1.2.0",
+    "@sinclair/typebox": "^0.34.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.4"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "pi",
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent",
+    "loop",
+    "cron",
+    "scheduler",
+    "durable",
+    "appendEntry",
+    "recurring",
+    "automation"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "lint": "tsc --noEmit",
+    "dev": "pi -e ./src/index.ts -s ./skills",
+    "test": "npm run build && node tests/smoke.mjs && node tests/loop-args.mjs && node tests/dynamic-loop.mjs && node tests/regressions.mjs && node tests/lifecycle.mjs"
+  }
+}
